@@ -20,15 +20,14 @@ dips18$pc_participacion18 <- dips18$TOTAL_VOTOS/dips18$LISTA_NOMINAL
 
 ##############################################################################
 
-
 # Cargamos los datos del PREP
-archivo_prep <- "data/20210606_2240_PREP_Diputaciones/Diputaciones_2021.csv" #Cambiar línea
 
-partidos <- c("PAN", "PRI", "PRD", "PVEM", "PT", "MC", "MORENA", "RSP", "FXM", "PES")
+link_prep <- "https://prep2021.ine.mx/diputaciones/nacional/assets/20210607_2000_PREP_Diputaciones.zip"
 
-c_VXM <- c("PAN.PRI.PRD", "PAN.PRI", "PAN.PRD", "PRI.PRD")
+temp <- tempfile()
+download.file(link_prep,temp)
 
-c_JHH <- c("PVEM.PT.MORENA", "PT.MORENA", "PVEM.MORENA", "PVEM.PT")
+archivo_prep <- unz(temp, "Diputaciones_2021.csv")
 
 hora_prep <- readLines(con = archivo_prep, n = 3)[2]
 
@@ -45,6 +44,14 @@ prep21 <-read.csv(file = archivo_prep,
                   header= T,
                   sep = ",",
                   skip = 5)
+
+unlink(temp)
+
+partidos <- c("PAN", "PRI", "PRD", "PVEM", "PT", "MC", "MORENA", "RSP", "FXM", "PES")
+
+c_VXM <- c("PAN.PRI.PRD", "PAN.PRI", "PAN.PRD", "PRI.PRD")
+
+c_JHH <- c("PVEM.PT.MORENA", "PT.MORENA", "PVEM.MORENA", "PVEM.PT")
 
 # Filtramos por actas contabilizadas
 prep21 <- prep21 %>% filter(CONTABILIZADA ==1)
