@@ -2,7 +2,7 @@ rm(list=ls(all=T))
 
 library(tidyverse)
 
-setwd("~/comparacion_PREP")
+setwd("~/prep_2021")
 
 # Cargamos los datos de votos por sección de la votación anterior
 dips18 <-read.csv("data/2018_SEE_DIP_FED_MR_NAL_SEC.csv")
